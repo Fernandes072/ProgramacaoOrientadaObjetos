@@ -16,6 +16,7 @@ public abstract class Conta {
 
 	public void deposito(Double valor) {
 		saldo += valor;
+		transacoes.add(new Transacao("Depósito", valor));
 	}
 
 	public abstract void saque(Double valor);
@@ -48,6 +49,6 @@ public abstract class Conta {
 
 	@Override
 	public String toString() {
-		return " | numero: " + numero + " | saldo: " + saldo + "]";
+		return "Número: " + numero + " | Saldo: " + saldo;
 	}
 }

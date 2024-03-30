@@ -14,20 +14,23 @@ public class ContaCorrente extends Conta {
 
 	@Override
 	public void saque(Double valor) {
-		if((valor + valor * taxaMovimentacao) > (getSaldo() + chequeEspecial)) {
+		if ((valor + valor * taxaMovimentacao) > (getSaldo() + chequeEspecial)) {
 			throw new BancoException("Erro: Valor insuficiente para saque!");
 		}
 		setSaldo(getSaldo() - (valor + valor * taxaMovimentacao));
+		getTransacoes().add(new Transacao("Saque", (valor + valor * taxaMovimentacao)));
 	}
 
 	@Override
 	public void transferencia(Double valor, Conta conta) {
-		if((valor + valor * taxaMovimentacao) > (getSaldo() + chequeEspecial)) {
+		if ((valor + valor * taxaMovimentacao) > (getSaldo() + chequeEspecial)) {
 			throw new BancoException("Erro: Valor insuficiente para transferência!");
 		}
 		setSaldo(getSaldo() - (valor + valor * taxaMovimentacao));
-		conta.deposito(valor);
+		getTransacoes().add(new Transacao("Transferência", "enviada", valor));
 
+		conta.setSaldo(conta.getSaldo() + valor);
+		conta.getTransacoes().add(new Transacao("Transferência", "recebida", valor));
 	}
 
 	public double getTaxaMovimentacao() {
@@ -56,7 +59,8 @@ public class ContaCorrente extends Conta {
 
 	@Override
 	public String toString() {
-		return "ContaCorrente [" + super.toString() + " | taxaMovimentacao: " + taxaMovimentacao + " | chequeEspecial: "
-				+ chequeEspecial + " | aumentoChequeEspecial: " + aumentoChequeEspecial + "]";
+		return "Conta Corrente [" + super.toString() + " | Taxa Movimentação: " + taxaMovimentacao * 100 + "%"
+				+ " | Cheque Especial: " + chequeEspecial + " | Aumento Cheque Especial: " + aumentoChequeEspecial
+				+ "]";
 	}
 }

@@ -3,31 +3,48 @@ package atividade3;
 import java.time.LocalDate;
 
 public class Transacao {
-	
+
 	private String tipo;
 	private LocalDate data;
 	private double valor;
+	private String tipoTransferencia;
+
+	public Transacao(String tipo, String tipoTransferencia, double valor) {
+		this.tipo = tipo;
+		this.tipoTransferencia = tipoTransferencia;
+		this.valor = valor;
+		this.data = LocalDate.now();
+	}
 	
-	public Transacao(String tipo, LocalDate data, double valor) {
+	public Transacao(String tipo,  double valor) {
 		this.tipo = tipo;
-		this.data = data;
 		this.valor = valor;
+		this.data = LocalDate.now();
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setData(LocalDate data) {
-		this.data = data;
+	public LocalDate getData() {
+		return data;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public double getValor() {
+		return valor;
+	}
+
+	public String getTipoTransferencia() {
+		return tipoTransferencia;
 	}
 
 	@Override
 	public String toString() {
-		return "Transacao [tipo: " + tipo + " | data: " + data + " | valor: " + valor + "]";
+		if (tipo.equals("Transferência")) {
+			return "Transação [Tipo: " + tipo + " " + tipoTransferencia + " | Data: " + data + " | Valor: " + valor + "]";
+		} else {
+			return "Transação [Tipo: " + tipo + " | Data: " + data + " | Valor: " + valor + "]";
+		}
+
 	}
 }

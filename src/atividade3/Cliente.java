@@ -73,7 +73,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Código: " + codigo + " | Nome: " + nome + " | Telefone: " + telefone + "]";
+		return "Código: " + codigo + " | Nome: " + nome + " | Telefone: " + telefone;
 	}
 
 }

@@ -19,6 +19,7 @@ public class ContaPoupanca extends Conta {
 			throw new BancoException("Erro: Valor insuficiente para saque!");
 		}
 		setSaldo(getSaldo() - valor);
+		getTransacoes().add(new Transacao("Saque", valor));
 	}
 
 	@Override
@@ -27,8 +28,10 @@ public class ContaPoupanca extends Conta {
 			throw new BancoException("Erro: Valor insuficiente para transferência!");
 		}
 		setSaldo(getSaldo() - valor);
-		conta.deposito(valor);
-
+		getTransacoes().add(new Transacao("Transferência", "enviada", valor));
+		
+		conta.setSaldo(conta.getSaldo() + valor);
+		conta.getTransacoes().add(new Transacao("Transferência", "recebida", valor));
 	}
 
 	public double getTaxaVariacao() {
@@ -41,7 +44,7 @@ public class ContaPoupanca extends Conta {
 
 	@Override
 	public String toString() {
-		return "ContaPoupanca [" + super.toString() + " | taxaVariacao: " + taxaVariacao + " | diaVariacao: "
+		return "Conta Poupança [" + super.toString() + " | Taxa Variação: " + taxaVariacao + " | Dia Variação: "
 				+ diaVariacao + "]";
 	}
 }
