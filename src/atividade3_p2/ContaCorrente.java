@@ -11,6 +11,10 @@ public class ContaCorrente extends Conta {
 		taxaMovimentacao = 0.05;
 		chequeEspecial = 100;
 	}
+	
+	public ContaCorrente(int numero) {
+		super(numero);
+	}
 
 	public double getTaxaMovimentacao() {
 		return taxaMovimentacao;
@@ -31,7 +35,7 @@ public class ContaCorrente extends Conta {
 			throw new BancoException("Erro: Valor insuficiente para saque!");
 		}
 		setSaldo(getSaldo() - valorSaque);
-		adicionarTransacao(TipoTransacao.SAQUE, valorSaque);
+		adicionarTransacao(TipoTransacao.SAQUE, valor);
 	}
 
 	@Override
@@ -41,10 +45,14 @@ public class ContaCorrente extends Conta {
 			throw new BancoException("Erro: Valor insuficiente para transferência!");
 		}
 		setSaldo(getSaldo() - valorTransferencia);
-		adicionarTransacao(TipoTransacao.TRANSFERENCIA_ENVIADA, valorTransferencia);
+		adicionarTransacao(TipoTransacao.TRANSFERENCIA_ENVIADA, valor);
 
 		conta.setSaldo(conta.getSaldo() + valor);
 		conta.adicionarTransacao(TipoTransacao.TRANSFERENCIA_RECEBIDA, valor);
+	}
+	
+	public void solicitarAumento(double valor) {
+		aumentoChequeEspecial = valor;
 	}
 
 	@Override

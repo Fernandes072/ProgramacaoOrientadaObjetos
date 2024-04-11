@@ -16,7 +16,12 @@ public abstract class Conta {
 	public Conta(int numero, String senha) {
 		this.numero = numero;
 		this.senha = senha;
+		tentativas = 3;
 		transacoes = new ArrayList<Transacao>();
+	}
+	
+	public Conta(int numero) {
+		this.numero = numero;
 	}
 
 	public double getSaldo() {

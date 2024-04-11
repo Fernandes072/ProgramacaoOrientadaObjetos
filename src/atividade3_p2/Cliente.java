@@ -16,6 +16,10 @@ public class Cliente {
 		this.telefone = telefone;
 		contas = new ArrayList<Conta>();
 	}
+	
+	public Cliente(int codigo) {
+		this.codigo = codigo;
+	}
 
 	public int getCodigo() {
 		return codigo;
@@ -31,6 +35,24 @@ public class Cliente {
 
 	public List<Conta> getContas() {
 		return contas;
+	}
+	
+	public void verificarLimiteContas(String tipo) {
+		int contadorPoupanca = 0;
+		int contadorCorrente = 0;
+		for (Conta conta : contas) {
+			if (conta instanceof ContaPoupanca) {
+				contadorPoupanca++;
+			} else {
+				contadorCorrente++;
+			}
+		}
+		if (contadorPoupanca == 1 && tipo.equals("1")) {
+			throw new BancoException("Erro: Limite de contas poupança!");
+		}
+		if (contadorCorrente == 1 && tipo.equals("2")) {
+			throw new BancoException("Erro: Limite de contas corrente!");
+		}
 	}
 
 	@Override
