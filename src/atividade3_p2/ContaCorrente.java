@@ -31,9 +31,8 @@ public class ContaCorrente extends Conta {
 	@Override
 	public void saque(Double valor) {
 		double valorSaque = valor * (1 + taxaMovimentacao);
-		if (valorSaque > (getSaldo() + chequeEspecial)) {
-			throw new BancoException("Erro: Valor insuficiente para saque!");
-		}
+		verificarSaldo(valorSaque);
+		
 		setSaldo(getSaldo() - valorSaque);
 		adicionarTransacao(TipoTransacao.SAQUE, valor);
 	}
@@ -41,9 +40,8 @@ public class ContaCorrente extends Conta {
 	@Override
 	public void transferencia(Double valor, Conta conta) {
 		double valorTransferencia = valor * (1 + taxaMovimentacao);
-		if (valorTransferencia > (getSaldo() + chequeEspecial)) {
-			throw new BancoException("Erro: Valor insuficiente para transferência!");
-		}
+		verificarSaldo(valorTransferencia);
+		
 		setSaldo(getSaldo() - valorTransferencia);
 		adicionarTransacao(TipoTransacao.TRANSFERENCIA_ENVIADA, valor);
 
@@ -51,8 +49,24 @@ public class ContaCorrente extends Conta {
 		conta.adicionarTransacao(TipoTransacao.TRANSFERENCIA_RECEBIDA, valor);
 	}
 	
+	protected void verificarSaldo(double valor) {
+		if (valor <= 0) {
+			throw new BancoException("Erro: Valor inválido!");
+		}
+		if (valor > (getSaldo() + chequeEspecial)) {
+			throw new BancoException("Erro: Valor insuficiente!");
+		}
+	}
+	
 	public void solicitarAumento(double valor) {
 		aumentoChequeEspecial = valor;
+	}
+	
+	public void concederAumento(double valor) {
+		if (valor > 0) {
+			chequeEspecial += valor;
+			aumentoChequeEspecial = 0;
+		}
 	}
 
 	@Override

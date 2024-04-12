@@ -78,8 +78,114 @@ public class Programa {
 	}
 
 	private static void opcoesGerente(Scanner s, List<Cliente> clientes) {
+		System.out.println();
 		menuGerente();
+		String opcao = s.next();
+		while (!opcao.equals("9")) {
+			try {
+				if (opcao.equals("1")) {
+					listarClientes(clientes);
+				} else if (opcao.equals("2")) {
+					listarContas(clientes);
+				} else if (opcao.equals("3")) {
+					listarPedidosAumento(clientes);
+				} else if (opcao.equals("4")) {
+					listarContasBloqueadas(clientes);
+				} else if (opcao.equals("5")) {
+					concederAumento(s, clientes);
+				} else if (opcao.equals("6")) {
+					desbloquearConta(s, clientes);
+				} else {
+					throw new BancoException("Erro: Opção inválida!");
+				}
+			} catch (BancoException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				System.out.println();
+				menuGerente();
+				opcao = s.next();
+			}
+		}
+	}
 
+	private static void desbloquearConta(Scanner s, List<Cliente> clientes) {
+		System.out.print("Número da conta: ");
+		int numero = s.nextInt();
+
+		Conta conta = null;
+		for (Cliente cliente : clientes) {
+			for (Conta c : cliente.getContas()) {
+				if (numero == c.getNumero() && c.getTentativas() == 0) {
+					conta = c;
+				}
+			}
+		}
+		if (conta == null) {
+			throw new BancoException("Erro: Número de conta inválido!");
+		}
+		
+		conta.desbloquear();
+		System.out.println("Desbloqueio realizado!");
+	}
+
+	private static void concederAumento(Scanner s, List<Cliente> clientes) {
+		System.out.print("Número da conta: ");
+		int numero = s.nextInt();
+
+		Conta conta = null;
+		for (Cliente cliente : clientes) {
+			for (Conta c : cliente.getContas()) {
+				if (numero == c.getNumero() && c instanceof ContaCorrente) {
+					if (((ContaCorrente) c).getAumentoChequeEspecial() > 0) {
+						conta = c;
+					}
+				}
+			}
+		}
+		if (conta == null) {
+			throw new BancoException("Erro: Número de conta inválido!");
+		}
+
+		System.out.print("Valor: ");
+		double valor = s.nextInt();
+		((ContaCorrente) conta).concederAumento(valor);
+		System.out.println("Aumento realizado!");
+	}
+
+	private static void listarContasBloqueadas(List<Cliente> clientes) {
+		for (Cliente cliente : clientes) {
+			for (Conta c : cliente.getContas()) {
+				if (c.getTentativas() == 0) {
+					System.out.println(c);
+				}
+			}
+		}
+	}
+
+	private static void listarPedidosAumento(List<Cliente> clientes) {
+		for (Cliente cliente : clientes) {
+			for (Conta c : cliente.getContas()) {
+				if (c instanceof ContaCorrente) {
+					if (((ContaCorrente) c).getAumentoChequeEspecial() > 0) {
+						System.out.println(c);
+					}
+				}
+			}
+		}
+	}
+
+	private static void listarContas(List<Cliente> clientes) {
+		for (Cliente cliente : clientes) {
+			for (Conta c : cliente.getContas()) {
+				System.out.println(c);
+			}
+		}
+	}
+
+	private static void listarClientes(List<Cliente> clientes) {
+		for (Cliente cliente : clientes) {
+			System.out.println(cliente);
+		}
 	}
 
 	private static void opcoesConta(Scanner s, Conta conta, List<Cliente> clientes) {

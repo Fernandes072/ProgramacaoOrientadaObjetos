@@ -3,8 +3,6 @@ package atividade3_p2;
 import java.util.ArrayList;
 import java.util.List;
 
-import atividade3.BancoException;
-
 public abstract class Conta {
 
 	private int numero;
@@ -19,7 +17,7 @@ public abstract class Conta {
 		tentativas = 3;
 		transacoes = new ArrayList<Transacao>();
 	}
-	
+
 	public Conta(int numero) {
 		this.numero = numero;
 	}
@@ -27,7 +25,7 @@ public abstract class Conta {
 	public double getSaldo() {
 		return saldo;
 	}
-	
+
 	protected void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
@@ -36,11 +34,18 @@ public abstract class Conta {
 		return numero;
 	}
 
+	public int getTentativas() {
+		return tentativas;
+	}
+
 	public List<Transacao> getTransacoes() {
 		return transacoes;
 	}
 
 	public void deposito(Double valor) {
+		if (valor <= 0) {
+			throw new BancoException("Erro: Valor inválido!");
+		}
 		saldo += valor;
 		adicionarTransacao(TipoTransacao.DEPOSITO, valor);
 	}
@@ -62,9 +67,15 @@ public abstract class Conta {
 		}
 		tentativas = 3;
 	}
-	
-	protected void adicionarTransacao (TipoTransacao tipo, double valor) {
+
+	protected void adicionarTransacao(TipoTransacao tipo, double valor) {
 		transacoes.add(new Transacao(tipo, valor));
+	}
+
+	protected abstract void verificarSaldo(double valor);
+
+	public void desbloquear() {
+		tentativas = 3;
 	}
 
 	@Override

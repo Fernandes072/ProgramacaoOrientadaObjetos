@@ -23,23 +23,28 @@ public class ContaPoupanca extends Conta {
 
 	@Override
 	public void saque(Double valor) {
-		if (valor > getSaldo()) {
-			throw new BancoException("Erro: Valor insuficiente para saque!");
-		}
+		verificarSaldo(valor);
 		setSaldo(getSaldo() - valor);
 		adicionarTransacao(TipoTransacao.SAQUE, valor);
 	}
 
 	@Override
 	public void transferencia(Double valor, Conta conta) {
-		if (valor > getSaldo()) {
-			throw new BancoException("Erro: Valor insuficiente para transferência!");
-		}
+		verificarSaldo(valor);
 		setSaldo(getSaldo() - valor);
 		adicionarTransacao(TipoTransacao.TRANSFERENCIA_ENVIADA, valor);
 
 		conta.setSaldo(conta.getSaldo() + valor);
 		conta.adicionarTransacao(TipoTransacao.TRANSFERENCIA_RECEBIDA, valor);
+	}
+	
+	protected void verificarSaldo(double valor) {
+		if (valor <= 0) {
+			throw new BancoException("Erro: Valor inválido!");
+		}
+		if (valor > getSaldo()) {
+			throw new BancoException("Erro: Valor insuficiente!");
+		}
 	}
 
 	@Override
