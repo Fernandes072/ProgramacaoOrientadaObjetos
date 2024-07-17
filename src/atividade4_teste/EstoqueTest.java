@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class EstoqueTest {
 	
+	//Testes para cadastrar produto
 	@Test
 	public void codigoNegativoDeveRetornarIllegalArgumentException() {
 		String dados = "-1 Cafe Extra 10 5";
@@ -71,7 +72,7 @@ public class EstoqueTest {
 	
 	@Test
 	public void validadeNegativaDeveRetornarIllegalArgumentException() {
-		System.setIn(new ByteArrayInputStream(" 2 Cafe Extra 10 -1".getBytes()));
+		System.setIn(new ByteArrayInputStream("2 Cafe Extra 10 -1".getBytes()));
 		Scanner scanner = new Scanner(System.in);
 		assertThrows(IllegalArgumentException.class, () -> {
 			Programa.criarProduto(scanner, null);
@@ -83,4 +84,28 @@ public class EstoqueTest {
 		Produto produto = new Produto(2, "Cafe", "Extra", 10, 5);
 		assertEquals(5, produto.getValidade());
 	}
+	
+	//essa parte dá pra usar método do produto
+	//Testes para adicionar estoque
+	@Test
+	public void valorAdicionarNegativoDeveRetornarIllegalArgumentException() {
+		System.setIn(new ByteArrayInputStream("-1".getBytes()));
+		Scanner scanner = new Scanner(System.in);
+		assertThrows(IllegalArgumentException.class, () -> {
+			//Programa.adicionarEstoque(scanner, null);
+		});
+	}
+	
+	//Testes para adicionar estoque
+	@Test
+	public void doisMaisTresDeveRetornarCinco() {
+		List<Produto> produtos = new ArrayList<Produto>();
+		produtos.add(new Produto(2));
+		System.setIn(new ByteArrayInputStream("-1".getBytes()));
+		Scanner scanner = new Scanner(System.in);
+		assertThrows(IllegalArgumentException.class, () -> {
+			//Programa.adicionarEstoque(scanner, produtos);
+		});
+	}
+	
 }
