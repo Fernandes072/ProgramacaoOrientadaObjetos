@@ -31,12 +31,8 @@ public class ControleUsuario {
 	}
 	
 	public boolean login(String nomeUsuario, String senha) {
-		int posicao = usuarios.indexOf(new Usuario(nomeUsuario));
-		if (posicao == -1) {
-			throw new RuntimeException("Usuário/Senha incorreto!");
-		}
-		if (!usuarios.get(posicao).getSenha().equals(senha)) {
-			throw new RuntimeException("Usuário/Senha incorreto!");
+		if (!buscarUsuario(nomeUsuario).getSenha().equals(senha)) {
+			throw new RuntimeException("Senha incorreta!");
 		}
 		return true;
 	}
