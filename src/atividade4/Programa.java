@@ -15,18 +15,18 @@ public class Programa {
 		estoque.adicionarEstoque(2, 20);
 		estoque.adicionarEstoque(1, 30);
 
+		ControleUsuario usuarios = new ControleUsuario();
+		usuarios.adicionarUsuario(new Usuario("Paulo", "Paulo12", "1234"));
+		usuarios.adicionarUsuario(new Usuario("1", "1", "1"));
+
 		menu();
 		int opcao = s.nextInt();
 		while (opcao != 9) {
 			try {
 				if (opcao == 1) {
-					cadastrarProduto(s, estoque);
-				} else if (opcao == 2) {
-					adicionarEstoque(s, estoque);
-				} else if (opcao == 3) {
-					removerEstoque(s, estoque);
-				} else if (opcao == 4) {
 					listarProdutos(s, estoque);
+				} else if (opcao == 2) {
+					login(s, usuarios, estoque);
 				} else {
 					throw new RuntimeException("Opção inválida");
 				}
@@ -39,6 +39,45 @@ public class Programa {
 			}
 		}
 		s.close();
+	}
+
+	private static void login(Scanner s, ControleUsuario usuarios, Estoque estoque) {
+		System.out.print("Usuário: ");
+		String usuario = s.next();
+		System.out.print("Senha: ");
+		String senha = s.next();
+		
+//		Quando digita o usuário dá errado, mas quando atribui diretamente (usuario = "1";) funciona
+//		System.out.println(usuarios.getUsuarios().indexOf(new Usuario(usuario)));
+//		usuario = "1";
+//		senha = "1";
+
+		if (usuarios.login(usuario, senha)) {
+			System.out.println();
+			menuLogado();
+			int opcao = s.nextInt();
+			while (opcao != 9) {
+				try {
+					if (opcao == 1) {
+						cadastrarProduto(s, estoque);
+					} else if (opcao == 2) {
+						adicionarEstoque(s, estoque);
+					} else if (opcao == 3) {
+						removerEstoque(s, estoque);
+					} else if (opcao == 4) {
+						listarProdutos(s, estoque);
+					} else {
+						throw new RuntimeException("Opção inválida");
+					}
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				} finally {
+					System.out.println();
+					menuLogado();
+					opcao = s.nextInt();
+				}
+			}
+		}
 	}
 
 	private static void listarProdutos(Scanner s, Estoque estoque) {
@@ -87,14 +126,12 @@ public class Programa {
 	}
 
 	private static void menu() {
-		System.out.println("1 - Cadastrar produto");
-		System.out.println("2 - Adicionar estoque");
-		System.out.println("3 - Remover estoque");
-		System.out.println("4 - Listar produtos");
+		System.out.println("1 - Listar produtos");
+		System.out.println("2 - Login");
 		System.out.println("9 - Sair");
 		System.out.print("Digite uma opção: ");
 	}
-	
+
 	private static void menuListarProdutos() {
 		System.out.println("1 - Listar completo");
 		System.out.println("2 - Listar resumido");
@@ -102,4 +139,12 @@ public class Programa {
 		System.out.print("Digite uma opção: ");
 	}
 
+	private static void menuLogado() {
+		System.out.println("1 - Cadastrar produto");
+		System.out.println("2 - Adicionar estoque");
+		System.out.println("3 - Remover estoque");
+		System.out.println("4 - Listar produtos");
+		System.out.println("9 - Logout");
+		System.out.print("Digite uma opção: ");
+	}
 }

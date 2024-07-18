@@ -23,10 +23,11 @@ public class Estoque {
 	}
 
 	public Produto buscarProduto(int codigo) {
-		if (produtos.indexOf(new Produto(codigo)) == -1) {
+		int posicao = produtos.indexOf(new Produto(codigo));
+		if (posicao == -1) {
 			throw new RuntimeException("Produto não existe!");
 		}
-		return produtos.get(produtos.indexOf(new Produto(codigo)));
+		return produtos.get(posicao);
 	}
 
 	public void adicionarEstoque(int codigo, int valor) {

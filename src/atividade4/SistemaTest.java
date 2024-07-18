@@ -1,5 +1,6 @@
 package atividade4;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -237,6 +238,22 @@ public class SistemaTest {
 	public void senhaVaziaDeveRetornarIllegalArgumentException() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			Usuario usuario = new Usuario("Paulo", "Paulo12", "");
+		});
+	}
+	
+	@Test
+	public void loginCertoDeveRetornarTrue() {
+		ControleUsuario usuarios = new ControleUsuario();
+		usuarios.adicionarUsuario(new Usuario("Paulo", "Paulo12", "1234"));
+		assertTrue(usuarios.login("Paulo12", "1234"));
+	}
+	
+	@Test
+	public void loginErradoDeveRetornarRuntimeException() {
+		ControleUsuario usuarios = new ControleUsuario();
+		usuarios.adicionarUsuario(new Usuario("Paulo", "Paulo12", "1234"));
+		assertThrows(RuntimeException.class, () -> {
+			usuarios.login("Paulo12", "4321");
 		});
 	}
 }

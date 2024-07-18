@@ -12,6 +12,10 @@ public class Usuario {
 		setSenha(senha);
 	}
 
+	public Usuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -43,12 +47,6 @@ public class Usuario {
 			throw new IllegalArgumentException("Senha não pode ser vazia!");
 		}
 		this.senha = senha;
-	}
-	
-	public void login(String senha) {
-		if (!senha.equals(this.senha)) {
-			throw new RuntimeException("Senha incorreta!");
-		}
 	}
 
 	@Override
