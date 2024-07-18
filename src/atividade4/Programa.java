@@ -8,30 +8,52 @@ public class Programa {
 		Scanner s = new Scanner(System.in);
 		Estoque estoque = new Estoque();
 
+		estoque.cadastrarProduto(new Produto(1, "Arroz", "Branco", 4, 30));
+		estoque.cadastrarProduto(new Produto(2, "Café", "Extra", 10, 5));
+		estoque.cadastrarProduto(new Produto(3, "Amendoim", "Japonês", 7, 15));
+		estoque.adicionarEstoque(3, 10);
+		estoque.adicionarEstoque(2, 20);
+		estoque.adicionarEstoque(1, 30);
+
 		menu();
 		int opcao = s.nextInt();
 		while (opcao != 9) {
-			if (opcao == 1) {
-				cadastrarProduto(s, estoque);
-			} else if (opcao == 2) {
-				adicionarEstoque(s, estoque);
-			} else if (opcao == 3) {
-				removerEstoque(s, estoque);
-			} else if (opcao == 4) {
-				listarProdutos(estoque);
+			try {
+				if (opcao == 1) {
+					cadastrarProduto(s, estoque);
+				} else if (opcao == 2) {
+					adicionarEstoque(s, estoque);
+				} else if (opcao == 3) {
+					removerEstoque(s, estoque);
+				} else if (opcao == 4) {
+					listarProdutos(s, estoque);
+				} else {
+					throw new RuntimeException("Opção inválida");
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} finally {
+				System.out.println();
+				menu();
+				opcao = s.nextInt();
 			}
-			
-			System.out.println();
-			menu();
-			opcao = s.nextInt();
 		}
-
 		s.close();
-
 	}
-	
-	private static void listarProdutos(Estoque estoque) {
-		estoque.listarProdutos();
+
+	private static void listarProdutos(Scanner s, Estoque estoque) {
+		System.out.println();
+		menuListarProdutos();
+		int opcao = s.nextInt();
+		if (opcao == 1) {
+			System.out.println(estoque.listarCompleto());
+		} else if (opcao == 2) {
+			System.out.println(estoque.listarResumido());
+		} else if (opcao == 3) {
+			System.out.println(estoque.listarProdutosPreco());
+		} else {
+			throw new RuntimeException("Opção inválida");
+		}
 	}
 
 	private static void removerEstoque(Scanner s, Estoque estoque) {
@@ -70,6 +92,13 @@ public class Programa {
 		System.out.println("3 - Remover estoque");
 		System.out.println("4 - Listar produtos");
 		System.out.println("9 - Sair");
+		System.out.print("Digite uma opção: ");
+	}
+	
+	private static void menuListarProdutos() {
+		System.out.println("1 - Listar completo");
+		System.out.println("2 - Listar resumido");
+		System.out.println("3 - Listar pelo preço");
 		System.out.print("Digite uma opção: ");
 	}
 

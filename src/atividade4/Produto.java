@@ -1,6 +1,6 @@
 package atividade4;
 
-public class Produto {
+public class Produto implements Comparable{
 
 	private int codigo;
 	private String nome;
@@ -97,6 +97,19 @@ public class Produto {
 		}
 		quantidade-=valor;
 
+	}
+	
+	@Override
+	public int compareTo(Object obj) {
+		if (obj instanceof Produto) {
+			Produto outro = (Produto) obj;
+			if (preco < outro.getPreco()) {
+				return -1;
+			} else if (preco > outro.getPreco()) {
+				return 1;
+			} 
+		}
+		return 0;
 	}
 
 	@Override
