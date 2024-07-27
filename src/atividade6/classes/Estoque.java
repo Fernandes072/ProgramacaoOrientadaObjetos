@@ -4,29 +4,39 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Estoque {
-	
+
 	private Map<Produto, Integer> produtos = new TreeMap<Produto, Integer>();
-	
+
 	public Estoque() {
-		
+
 	}
-	
+
 	public void cadastrarProduto(String nome, String descricao, double preco, int validade) {
 		int codigo = GeradorCodigo.getCodigoProduto();
-		if(produtos.containsKey(new Produto(codigo))) {
+		if (produtos.containsKey(new Produto(codigo))) {
 			throw new RuntimeException("Código do produto já existe!");
 		}
 		produtos.put(new Produto(codigo, nome, descricao, preco, validade), 0);
 	}
-	
+
 	private Produto verificarProduto(int codigo) {
 		Produto produto = new Produto(codigo);
-		if(!produtos.containsKey(produto)) {
+		if (!produtos.containsKey(produto)) {
 			throw new RuntimeException("Produto não existe!");
 		}
 		return produto;
 	}
-	
+
+	public Produto buscarProduto(int codigo) {
+		Produto p = new Produto(codigo);
+		for (Produto produto : produtos.keySet()) {
+			if (produto.equals(p)) {
+				return produto;
+			}
+		}
+		throw new RuntimeException("Produto não existe!");
+	}
+
 	public void adicionarEstoque(int codigo, int quantidade) {
 		Produto produto = verificarProduto(codigo);
 		if (quantidade < 0) {
@@ -35,7 +45,7 @@ public class Estoque {
 		int qtdEmEstoque = produtos.get(produto);
 		produtos.put(produto, qtdEmEstoque + quantidade);
 	}
-	
+
 	public void removerEstoque(int codigo, int quantidade) {
 		Produto produto = verificarProduto(codigo);
 		if (quantidade < 0) {
@@ -47,7 +57,7 @@ public class Estoque {
 		}
 		produtos.put(produto, quantidade - qtdEmEstoque);
 	}
-	
+
 	public String listarProdutos() {
 		StringBuilder sb = new StringBuilder();
 		for (Produto produto : produtos.keySet()) {

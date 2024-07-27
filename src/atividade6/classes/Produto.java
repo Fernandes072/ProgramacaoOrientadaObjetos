@@ -95,6 +95,10 @@ public class Produto implements Comparable {
 				+ " | Validade: " + validade;
 	}
 
+	public String toString2() {
+		return "Código: " + codigo + " | Nome: " + nome + " | Preço: " + preco;
+	}
+
 	@Override
 	public int compareTo(Object o) {
 		if (o instanceof Produto) {

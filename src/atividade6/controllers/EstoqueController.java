@@ -1,6 +1,7 @@
 package atividade6.controllers;
 
 import atividade6.classes.Estoque;
+import atividade6.classes.Produto;
 
 public class EstoqueController {
 	
@@ -16,6 +17,10 @@ public class EstoqueController {
 	
 	public static void removerEstoque(int codigo, int quantidade) {
 		estoque.removerEstoque(codigo, quantidade);
+	}
+	
+	public static Produto buscarProduto(int codigo) {
+		return estoque.buscarProduto(codigo);
 	}
 	
 	public static String listarProdutos() {
