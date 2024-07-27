@@ -19,14 +19,6 @@ public class Estoque {
 		produtos.put(new Produto(codigo, nome, descricao, preco, validade), 0);
 	}
 
-	private Produto verificarProduto(int codigo) {
-		Produto produto = new Produto(codigo);
-		if (!produtos.containsKey(produto)) {
-			throw new RuntimeException("Produto não existe!");
-		}
-		return produto;
-	}
-
 	public Produto buscarProduto(int codigo) {
 		Produto p = new Produto(codigo);
 		for (Produto produto : produtos.keySet()) {
@@ -38,7 +30,7 @@ public class Estoque {
 	}
 
 	public void adicionarEstoque(int codigo, int quantidade) {
-		Produto produto = verificarProduto(codigo);
+		Produto produto = buscarProduto(codigo);
 		if (quantidade < 0) {
 			throw new IllegalArgumentException("Quantidade não pode ser negativa!");
 		}
@@ -47,7 +39,7 @@ public class Estoque {
 	}
 
 	public void removerEstoque(int codigo, int quantidade) {
-		Produto produto = verificarProduto(codigo);
+		Produto produto = buscarProduto(codigo);
 		if (quantidade < 0) {
 			throw new IllegalArgumentException("Quantidade não pode ser negativa!");
 		}
@@ -55,7 +47,11 @@ public class Estoque {
 		if (quantidade > qtdEmEstoque) {
 			throw new RuntimeException("Quantidade superior ao estoque!");
 		}
-		produtos.put(produto, quantidade - qtdEmEstoque);
+		produtos.put(produto, qtdEmEstoque - quantidade);
+	}
+	
+	public Map<Produto, Integer> getProdutos(){
+		return new TreeMap<Produto, Integer>(produtos);
 	}
 
 	public String listarProdutos() {

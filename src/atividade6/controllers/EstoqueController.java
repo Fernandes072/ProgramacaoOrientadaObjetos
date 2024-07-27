@@ -1,5 +1,7 @@
 package atividade6.controllers;
 
+import java.util.Map;
+
 import atividade6.classes.Estoque;
 import atividade6.classes.Produto;
 
@@ -21,6 +23,10 @@ public class EstoqueController {
 	
 	public static Produto buscarProduto(int codigo) {
 		return estoque.buscarProduto(codigo);
+	}
+	
+	public static Map<Produto, Integer> getProdutos(){
+		return estoque.getProdutos();
 	}
 	
 	public static String listarProdutos() {

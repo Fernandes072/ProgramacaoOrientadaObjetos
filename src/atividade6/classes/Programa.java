@@ -59,7 +59,7 @@ public class Programa {
 			System.out.print("Código: ");
 			codigo = s.nextInt();
 		}
-		GerenciadorPedidosController.adicionarPedido(new Cliente("h"), itens);
+		GerenciadorPedidosController.adicionarPedido(new Cliente("h", "h", "h"), itens);
 	}
 
 	private static void cadastrarProduto() {

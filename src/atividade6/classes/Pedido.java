@@ -16,7 +16,7 @@ public class Pedido {
 	}
 	
 	public Pedido(int codigo) {
-		this(codigo, new Cliente("a"), new ArrayList<ItemPedido>());
+		this(codigo, new Cliente("a", "a", "a"), new ArrayList<ItemPedido>());
 	}
 
 	public int getCodigo() {
