@@ -14,6 +14,10 @@ public class GerenciadorPedidosController {
 		gerenciadorPedidos.adicionarPedido(cliente, itensPedido);
 	}
 	
+	public static String listarPedidosPorCliente(String cpf) {
+		return gerenciadorPedidos.listarPedidosPorCliente(cpf);
+	}
+	
 	public static String listarPedidos() {
 		return gerenciadorPedidos.listarPedidos();
 	}

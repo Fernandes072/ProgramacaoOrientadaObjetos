@@ -74,7 +74,7 @@ public class Produto implements Comparable {
 		return validade;
 	}
 
-	public void setValidade(int validade) {
+	private void setValidade(int validade) {
 		if (validade < 0) {
 			throw new IllegalArgumentException("Validade não pode ser negativa!");
 		}

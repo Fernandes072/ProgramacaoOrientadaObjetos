@@ -19,6 +19,19 @@ public class GerenciadorPedidos {
 		pedidos.add(new Pedido(codigo, cliente, itensPedido));
 	}
 	
+	public String listarPedidosPorCliente(String cpf) {
+		StringBuilder sb = new StringBuilder();
+		for (Pedido pedido : pedidos) {
+			if (pedido.getCliente().equals(new Cliente(cpf))) {
+				if (!sb.isEmpty()) {
+					sb.append("\n");
+				}
+				sb.append(pedido);
+			}
+		}
+		return sb.toString();
+	}
+	
 	public String listarPedidos() {
 		return pedidos.toString();
 	}

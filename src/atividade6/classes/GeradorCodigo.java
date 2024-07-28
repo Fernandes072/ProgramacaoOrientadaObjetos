@@ -2,7 +2,7 @@ package atividade6.classes;
 
 public class GeradorCodigo {
 	
-	private static int codigoProduto ;
+	private static int codigoProduto;
 	private static int codigoPedido;
 	
 	public static int getCodigoProduto() {

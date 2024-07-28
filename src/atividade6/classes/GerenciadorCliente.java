@@ -13,7 +13,7 @@ public class GerenciadorCliente {
 	
 	public void cadastrarCliente(String cpf, String nome, String email) {
 		if (clientes.contains(new Cliente(cpf))) {
-			throw new RuntimeException("Código do produto já existe!");
+			throw new RuntimeException("Cliente já existe!");
 		}
 		clientes.add(new Cliente(cpf, nome, email));
 	}
