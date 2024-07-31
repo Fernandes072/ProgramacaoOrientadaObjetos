@@ -3,6 +3,8 @@ package atividade6.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import atividade6.controllers.EstoqueController;
+
 public class GerenciadorPedidos {
 	
 	private List<Pedido> pedidos;
@@ -16,7 +18,12 @@ public class GerenciadorPedidos {
 		if(pedidos.contains(new Pedido(codigo))) {
 			throw new RuntimeException("Código do pedido já existe!");
 		}
-		pedidos.add(new Pedido(codigo, cliente, itensPedido));
+		for (ItemPedido item : itensPedido) {
+			EstoqueController.removerEstoque(item.getProduto().getCodigo(), item.getQuantidade());
+		}
+		Pedido pedido = new Pedido(codigo, cliente, itensPedido);
+		System.out.println(pedido);
+		pedidos.add(pedido);
 	}
 	
 	public String listarPedidosPorCliente(String cpf) {

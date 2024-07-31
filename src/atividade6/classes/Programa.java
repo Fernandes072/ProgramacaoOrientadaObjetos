@@ -15,7 +15,7 @@ public class Programa {
 		EstoqueController.cadastrarProduto("Café", "Extraforte", 5, 10);
 		EstoqueController.cadastrarProduto("Arroz", "Branco", 3, 15);
 		EstoqueController.cadastrarProduto("Macarrão", "Parafuso", 8, 120);
-		
+
 		GerenciadorClienteController.cadastrarCliente("123", "joao", "joao@");
 		GerenciadorClienteController.cadastrarCliente("456", "jose", "jose@");
 
@@ -60,9 +60,9 @@ public class Programa {
 	private static void listarPedidosPorCliente(Scanner s) {
 		System.out.print("CPF: ");
 		String cpf = s.next();
-		GerenciadorPedidosController.listarPedidosPorCliente(cpf);
+		System.out.println(GerenciadorPedidosController.listarPedidosPorCliente(cpf));
 	}
-	
+
 	private static void listarProdutos() {
 		System.out.println(EstoqueController.listarProdutos());
 	}
@@ -78,14 +78,20 @@ public class Programa {
 		while (codigo != -1) {
 			System.out.print("Quantidade: ");
 			int quantidade = s.nextInt();
-			itens.add(new ItemPedido(quantidade, EstoqueController.buscarProduto(codigo)));
-
-			System.out.print("Código: ");
-			codigo = s.nextInt();
+			try {
+				Produto produto = EstoqueController.buscarProduto(codigo);
+				itens.add(new ItemPedido(quantidade, produto));
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} finally {
+				System.out.print("Código: ");
+				codigo = s.nextInt();
+			}
 		}
 		System.out.print("CPF: ");
 		String cpf = s.next();
-		GerenciadorPedidosController.adicionarPedido(GerenciadorClienteController.buscarCliente(cpf), itens);
+		Cliente cliente = GerenciadorClienteController.buscarCliente(cpf);
+		GerenciadorPedidosController.adicionarPedido(cliente, itens);
 	}
 
 	private static void adicionarEstoque(Scanner s) {

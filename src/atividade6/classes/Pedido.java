@@ -56,6 +56,8 @@ public class Pedido {
 		for (ItemPedido itemPedido : itensPedido) {
 			total += itemPedido.subTotal();
 		}
+		CalculadoraImposto imposto = new CalculadoraImposto();
+		imposto.alterarImposto(new ImpostoFederal());
 		return total;
 	}
 
