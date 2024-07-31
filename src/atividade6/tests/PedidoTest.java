@@ -70,8 +70,9 @@ class PedidoTest {
 	}
 	
 	@Test
-	void total27DeveRetornar27() {
-		assertEquals(27, pedido.total());
+	void total27DeveRetornar3105() {
+		System.out.println(pedido.total());
+		assertEquals(31.05, pedido.total());
 	}
 
 }

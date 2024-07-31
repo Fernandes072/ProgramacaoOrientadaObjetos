@@ -11,6 +11,7 @@ public class GerenciadorPedidosController {
 	private static GerenciadorPedidos gerenciadorPedidos = new GerenciadorPedidos();
 	
 	public static void adicionarPedido(Cliente cliente, List<ItemPedido> itensPedido) {
+		System.out.println(itensPedido);
 		gerenciadorPedidos.adicionarPedido(cliente, itensPedido);
 	}
 	

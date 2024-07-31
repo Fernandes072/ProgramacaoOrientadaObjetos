@@ -34,9 +34,9 @@ public class Pedido {
 		if (itensPedido == null) {
 			throw new IllegalArgumentException("Itens não pode ser vazio!");
 		}
-		if (itensPedido.isEmpty()) {
-			throw new IllegalArgumentException("Itens não pode ser vazio!");
-		}
+//		if (itensPedido.isEmpty()) {
+//			throw new IllegalArgumentException("Itens não pode ser vazio!");
+//		}
 		this.itensPedido = itensPedido;
 	}
 
@@ -56,9 +56,8 @@ public class Pedido {
 		for (ItemPedido itemPedido : itensPedido) {
 			total += itemPedido.subTotal();
 		}
-		CalculadoraImposto imposto = new CalculadoraImposto();
-		imposto.alterarImposto(new ImpostoFederal());
-		return total;
+		double imposto = CalculadoraImposto.calcularImposto(total, new ImpostoEstadual());
+		return total + imposto;
 	}
 
 	@Override

@@ -2,13 +2,7 @@ package atividade6.classes;
 
 public class CalculadoraImposto {
 	
-	private Imposto imposto;
-	
-	public void alterarImposto(Imposto imposto) {
-		this.imposto = imposto;
-	}
-	
-	public double calcularImposto(double valor) {
+	public static double calcularImposto(double valor, Imposto imposto) {
 		return imposto.calcularImposto(valor);
 	}
 }
