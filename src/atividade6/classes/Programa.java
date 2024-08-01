@@ -73,6 +73,9 @@ public class Programa {
 
 	private static void realizarPedido(Scanner s) {
 		List<ItemPedido> itens = new ArrayList<ItemPedido>();
+		System.out.print("CPF: ");
+		String cpf = s.next();
+		Cliente cliente = GerenciadorClienteController.buscarCliente(cpf);
 		System.out.print("Código: ");
 		int codigo = s.nextInt();
 		while (codigo != -1) {
@@ -88,9 +91,6 @@ public class Programa {
 				codigo = s.nextInt();
 			}
 		}
-		System.out.print("CPF: ");
-		String cpf = s.next();
-		Cliente cliente = GerenciadorClienteController.buscarCliente(cpf);
 		GerenciadorPedidosController.adicionarPedido(cliente, itens);
 	}
 

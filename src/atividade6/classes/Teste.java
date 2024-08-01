@@ -30,12 +30,14 @@ public class Teste {
 //		//assertEquals(5, estoque.getProdutos().get(estoque.buscarProduto(1)));
 		
 		
-		Estoque estoque = new Estoque();
-		estoque.cadastrarProduto("arroz", "branco", 5, 10);
-		estoque.removerEstoque(1, -1);
+//		Estoque estoque = new Estoque();
+//		estoque.cadastrarProduto("arroz", "branco", 5, 10);
+//		estoque.removerEstoque(1, -1);
 //		assertThrows(IllegalArgumentException.class, () -> {
 //			estoque.removerEstoque(1, -1);
 //		});
+		
+		new Pedido(1);
 	}
 
 }

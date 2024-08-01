@@ -34,9 +34,6 @@ public class Pedido {
 		if (itensPedido == null) {
 			throw new IllegalArgumentException("Itens não pode ser vazio!");
 		}
-//		if (itensPedido.isEmpty()) {
-//			throw new IllegalArgumentException("Itens não pode ser vazio!");
-//		}
 		this.itensPedido = itensPedido;
 	}
 

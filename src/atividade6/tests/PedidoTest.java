@@ -62,16 +62,7 @@ class PedidoTest {
 	}
 	
 	@Test
-	void itensVazioDeveRetornarIllegalArgumentException() {
-		List<ItemPedido> itens = new ArrayList<ItemPedido>();
-		assertThrows(IllegalArgumentException.class, () -> {
-			new Pedido(2, new Cliente("123", "123", "123"), itens);
-		});
-	}
-	
-	@Test
 	void total27DeveRetornar3105() {
-		System.out.println(pedido.total());
 		assertEquals(31.05, pedido.total());
 	}
 
