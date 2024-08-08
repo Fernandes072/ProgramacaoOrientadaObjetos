@@ -23,12 +23,8 @@ public class GerenciadorPedidos {
 		}
 		Pedido pedido = new Pedido(codigo, cliente, itensPedido);
 		System.out.println(pedido);
-		enviarNotificacao(cliente, pedido);
 		pedidos.add(pedido);
-	}
-
-	private void enviarNotificacao(Cliente cliente, Pedido pedido) {
-		System.out.println("Informações do pedido " + pedido.getCodigo() + " enviadas para " + cliente.getEmail() + "!");
+		SistemaEmail.enviarNotificacao(cliente, pedido);
 	}
 
 	public String listarPedidosPorCliente(String cpf) {
